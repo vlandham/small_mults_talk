@@ -1,0 +1,18 @@
+div.enter()
+  .append("div")
+  .attr("class", "chart")
+  .append("svg").append("g");
+
+var svg = div.select("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom);
+
+var g = svg
+  .select("g")
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    
+g.append("rect")
+  .attr("class", "background")
+  .style("pointer-events", "all")
+  .attr("width", width + margin.right)
+  .attr("height", height)

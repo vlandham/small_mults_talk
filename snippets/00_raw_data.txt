@@ -1,0 +1,10 @@
+"year"  "category"  "n"
+"2004"  "clothing, beauty, & fashion"   141
+"2004"  "computers & internet"  2489
+"2004"  "education" 151
+"2005"  "clothing, beauty, & fashion"   203
+"2005"  "computers & internet"  2200
+"2005"  "education" 201
+"2005"  "food & drink"  324
+"2005"  "grab bag"  248
+"2005"  "health & fitness"  590

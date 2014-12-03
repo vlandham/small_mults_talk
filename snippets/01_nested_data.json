@@ -1,0 +1,11 @@
+[
+  {"key":"clothing, beauty, & fashion",
+   "values":
+     [{"year":"2004", "n":141, "date":"2004-01-01"},{"year":"2005", "n":203, "date":"2005-01-01"},...]
+  },
+  {"key":"computers & internet",
+   "values":
+     [{"year":"2004", "n":2489, "date":"2004-01-01"},{"year":"2005", "n":2200, "date":"2005-01-01"},...]
+  },
+  ...
+]
