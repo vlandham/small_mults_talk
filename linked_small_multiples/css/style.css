@@ -54,7 +54,7 @@ svg {
 }
 
 .axis line, .grid line {
-  stroke-width: .5px;
+  stroke-width: 1px;
   shape-rendering: crispEdges;
   stroke: #fff;
   opacity: 0.5;
