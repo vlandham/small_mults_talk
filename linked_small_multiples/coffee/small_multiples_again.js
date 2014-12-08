@@ -35,12 +35,12 @@ var SmallMultiples = function() {
     .tickSize(-width);
 
   var area = d3.svg.area()
-    .x(function(d) { return xScale(xValue(d)); })
-    .y0(height).y1(function(d) { return yScale(yValue(d)); });
+    .x(function(d) { return xScale(d.date); })
+    .y0(height).y1(function(d) { return yScale(d.n); });
 
   var line = d3.svg.line()
-    .x(function(d) { return xScale(xValue(d)); })
-    .y(function(d) { return yScale(yValue(d)); });
+    .x(function(d) { return xScale(d.date); })
+    .y(function(d) { return yScale(d.n); });
 
   var setupScales = function(data) {
     var maxY = d3.max(data, function(c) {

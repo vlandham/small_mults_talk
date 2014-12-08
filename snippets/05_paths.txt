@@ -1,0 +1,14 @@
+lines.append("path")
+  .attr("class", "area")
+  .style("pointer-events", "none")
+  .attr("d", function(c) {
+    return area(c.values);
+  });
+
+lines.append("path")
+  .attr("class", "line")
+  .style("pointer-events", "none")
+  .attr("d", function(c) {
+    return line(c.values);
+  });
+
