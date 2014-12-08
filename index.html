@@ -420,6 +420,11 @@ lines.append("path")
 <img src="img/static.png" style="width:100%"/>
 </section>
 
+<section id="interactive" style="text-align:center;padding-top:5em;">
+  <p class="title">Interactive</p>
+  <svg id="intervis"></svg>
+</section>
+
 <section id="lorenz" style="text-align:center;padding-top:0;">
   <canvas></canvas>
   <p style="position:absolute;z-index:1;padding-top:5em;left:0;width:100%;text-shadow:0 1px 0 #000;">Use <i>activate</i> and <i>deactivate</i> events
@@ -445,6 +450,15 @@ lines.append("path")
 <script src="js/stack.v1.min.js"></script>
 <script>
 
+/**
+ * Returns a random integer between min (inclusive) and max (inclusive)
+ * Using Math.round() will give you a non-uniform distribution!
+ */
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
 var mystack = stack()
     .on("activate", activate)
     .on("deactivate", deactivate);
@@ -453,8 +467,10 @@ var section = d3.selectAll("section"),
     follow = d3.select("#follow"),
     followAnchor = d3.select("#follow-anchor"),
     lorenz = d3.select("#lorenz"),
+    interactive = d3.select("#interactive"),
     followIndex = section[0].indexOf(follow.node()),
     lorenzIndex = section[0].indexOf(lorenz.node());
+    interIndex = section[0].indexOf(interactive.node());
 
 function refollow() {
   followAnchor.style("top", (followIndex + (1 - mystack.scrollRatio()) / 2 - d3.event.offset) * 100 + "%");
@@ -477,13 +493,71 @@ function stopVideo(i) {
 function activate(d, i) {
   if (i === followIndex) mystack.on("scroll.follow", refollow);
   if (i === lorenzIndex) startLorenz();
+  if (i === interIndex) startInteractive();
   startVideo(i);
 }
 
 function deactivate(d, i) {
   if (i === followIndex) mystack.on("scroll.follow", null);
   if (i === lorenzIndex) stopLorenz();
+  if (i === interIndex) stopInteractive();
   stopVideo(i);
+}
+
+var interInterval;
+
+function startInteractive() {
+  var width = 1280,
+      height = 720;
+
+  var data = [];
+  for(var i = 0; i < 40; i++) {
+    data.push({x:getRandomInt(0,width),y:getRandomInt(0,height), dir:Math.random() > 0.4});
+  }
+
+
+  var vis = d3.select("#intervis")
+      .style("position", "absolute")
+      .style("top", 0)
+      .style("left", 0)
+      .style("width", "100%")
+      .style("height", "100%")
+      .attr("width", width)
+      .attr("height", height);
+
+  var animate = function () {
+    data.forEach(function(d) {
+      var param = (d.dir) ? width : height;
+      console.log(d);
+      d[d.dir ? 'x' : 'y'] = getRandomInt(20, (param - 20));
+      d.dir = !d.dir;
+      vis.selectAll("circle").data(data)
+        .transition()
+        .duration(2000)
+        .delay(function(d,i) { return i * 10; })
+        .ease("exp-out")
+        .attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; });
+
+      });
+    interInterval = setTimeout(animate, 2000);
+
+  };
+
+
+  vis.selectAll("circle").data(data)
+    .enter().append("circle")
+    .attr("r", 40)
+    .attr("fill", "#888")
+    .attr("opacity", 0.6);
+  /*   .attr("cx", function (d) { return d.i + width / 2; }) */
+  /*   .attr("cy", height / 2); */
+  animate();
+
+}
+
+function stopInteractive() {
+  interInterval = clearInterval(interInterval);
 }
 
 var lorenzInterval;
