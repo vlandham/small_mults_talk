@@ -335,7 +335,7 @@ g.append("rect")
   .attr("class", "background")
   .style("pointer-events", "all")
   .attr("width", width + margin.right)
-  .attr("height", height)
+  .attr("height", height);
     </code></pre>
 </section>
 
@@ -425,6 +425,45 @@ lines.append("path")
   <svg id="intervis"></svg>
 </section>
 
+<section id="snippet3" style="text-align:center;padding-top:3em;">
+    <pre data-line="6,7,8"><code class="language-javascript">g.append("rect")
+  .attr("class", "background")
+  .style("pointer-events", "all")
+  .attr("width", width + margin.right)
+  .attr("height", height)
+  .on("mouseover", mouseover)
+  .on("mousemove", mousemove)
+  .on("mouseout", mouseout);
+    </code></pre>
+</section>
+
+<section id="snippet3" style="text-align:center;padding-top:2em;font-size:70%;">
+    <pre ><code class="language-javascript">var mouseover = function() {
+  circle.attr("opacity", 1.0);
+  d3.selectAll(".static_year")
+    .classed("hidden", true);
+  return mousemove.call(this);
+};
+
+var mouseout = function() {
+  circle.attr("opacity", 0);
+  d3.selectAll(".static_year")
+    .classed("hidden", false);
+
+  caption.text("");
+  curYear.text("");
+  return true;
+};
+    </code></pre>
+</section>
+
+<section id="snippet3" style="text-align:center;padding-top:3em;">
+    <pre ><code class="language-javascript">var xpos = d3.mouse(this)[0];
+var date = xScale.invert(xpos);
+    </code></pre>
+</section>
+
+
 <section id="lorenz" style="text-align:center;padding-top:0;">
   <canvas></canvas>
   <p style="position:absolute;z-index:1;padding-top:5em;left:0;width:100%;text-shadow:0 1px 0 #000;">Use <i>activate</i> and <i>deactivate</i> events
@@ -449,6 +488,32 @@ lines.append("path")
 <script src="js/d3.min.js"></script>
 <script src="js/stack.v1.min.js"></script>
 <script>
+
+// Inspired by Lee Byron's test data generator.
+function bumpLayer(n, o) {
+
+  function bump(a) {
+    var x = 1 / (.1 + Math.random()),
+        y = 2 * Math.random() - .5,
+        z = 10 / (.1 + Math.random());
+    for (var i = 0; i < n; i++) {
+      var w = (i / n - y) * z;
+      a[i] += x * Math.exp(-w * w);
+    }
+  }
+
+  var a = [], i;
+  for (i = 0; i < n; ++i) a[i] = o + o * Math.random();
+  for (i = 0; i < 5; ++i) bump(a);
+  return a.map(function(d, i) { return {x: i, y: Math.max(0, d)}; });
+}
+
+
+// http://stackoverflow.com/questions/1527803/generating-random-numbers-in-javascript-in-a-specific-range
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
 
 /**
  * Returns a random integer between min (inclusive) and max (inclusive)
@@ -509,10 +574,15 @@ var interInterval;
 function startInteractive() {
   var width = 1280,
       height = 720;
+  width = window.innerWidth;
+  height = window.innerHeight;
 
   var data = [];
-  for(var i = 0; i < 40; i++) {
-    data.push({x:getRandomInt(0,width),y:getRandomInt(0,height), dir:Math.random() > 0.4});
+  var count = 30;
+  var size = 80;
+  for(var i = 0; i < count; i++) {
+    var x = (width / size) + (i * size);
+    data.push({x:x,y:getRandomInt(0,height), dir:Math.random() > 0.4});
   }
 
 
@@ -521,20 +591,22 @@ function startInteractive() {
       .style("top", 0)
       .style("left", 0)
       .style("width", "100%")
-      .style("height", "100%")
-      .attr("width", width)
+      .style("height", "100%");
+
+      vis.attr("width", width)
       .attr("height", height);
 
   var animate = function () {
     data.forEach(function(d) {
-      var param = (d.dir) ? width : height;
-      console.log(d);
-      d[d.dir ? 'x' : 'y'] = getRandomInt(20, (param - 20));
+      /* var param = (d.dir) ? width : height; */
+      /* console.log(d); */
+      /* d[d.dir ? 'x' : 'y'] = getRandomInt(20, (param - 20)); */
+      d.y = getRandomInt(size, (height - size));
       d.dir = !d.dir;
       vis.selectAll("circle").data(data)
         .transition()
         .duration(2000)
-        .delay(function(d,i) { return i * 10; })
+        .delay(function(d,i) { return i * 100; })
         .ease("exp-out")
         .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
@@ -549,9 +621,10 @@ function startInteractive() {
     .enter().append("circle")
     .attr("r", 40)
     .attr("fill", "#888")
-    .attr("opacity", 0.6);
-  /*   .attr("cx", function (d) { return d.i + width / 2; }) */
-  /*   .attr("cy", height / 2); */
+    .attr("opacity", 0.6)
+    .attr("cx", function(d) { return d.x; })
+    .attr("cy", function(d) { return d.y; });
+
   animate();
 
 }

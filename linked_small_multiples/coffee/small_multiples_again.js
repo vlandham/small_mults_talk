@@ -172,22 +172,42 @@ var SmallMultiples = function() {
     return mousemove.call(this);
   };
 
+  var getPos = function(array, date) {
+    var found = false;
+    var index = 0;
+    while (!found && index < array.length ) {
+      if(array[index].date > date) {
+        found = true;
+      } else {
+        index = index + 1;
+      }
+    }
+
+    return index - 1;
+  };
+
   var mousemove = function() {
-    var year = xScale.invert(d3.mouse(this)[0]).getFullYear();
+    var xpos = d3.mouse(this)[0];
+    var year = xScale.invert(xpos).getFullYear();
     var date = format.parse('' + year);
+    // var date = xScale.invert(xpos);
     var index = 0;
 
     circle.attr("cx", xScale(date))
       .attr("cy", function(c) {
-        index = bisect(c.values, date, 0, c.values.length - 1);
-        return yScale(yValue(c.values[index]));
+        // index = bisect(c.values, date, 0, c.values.length - 1);
+        index = getPos(c.values, date);
+        console.log(index);
+        return yScale(c.values[index].n);
       });
+
     caption.attr("x", xScale(date))
       .attr("y", function(c) {
-        return yScale(yValue(c.values[index]));
+        return yScale(c.values[index].n);
       }).text(function(c) {
-        return yValue(c.values[index]);
+        return c.values[index].n;
       });
+
     curYear.attr("x", xScale(date)).text(year);
     return true;
   };
