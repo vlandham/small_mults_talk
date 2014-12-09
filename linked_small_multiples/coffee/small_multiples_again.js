@@ -172,14 +172,16 @@ var SmallMultiples = function() {
     return mousemove.call(this);
   };
 
-  var getPos = function(array, date) {
+  // find location in 'array' with
+  // date nearest to 'date'
+  var findIndex = function(array, date) {
     var found = false;
-    var index = 0;
+    var index = 1;
     while (!found && index < array.length ) {
       if(array[index].date > date) {
         found = true;
       } else {
-        index = index + 1;
+        index++;
       }
     }
 
@@ -193,11 +195,11 @@ var SmallMultiples = function() {
     // var date = xScale.invert(xpos);
     var index = 0;
 
-    circle.attr("cx", xScale(date))
+    circle
+      .attr("cx", xScale(date))
       .attr("cy", function(c) {
         // index = bisect(c.values, date, 0, c.values.length - 1);
-        index = getPos(c.values, date);
-        console.log(index);
+        index = findIndex(c.values, date);
         return yScale(c.values[index].n);
       });
 
@@ -208,7 +210,9 @@ var SmallMultiples = function() {
         return c.values[index].n;
       });
 
-    curYear.attr("x", xScale(date)).text(year);
+    curYear
+      .attr("x", xScale(date))
+      .text(year);
     return true;
   };
 

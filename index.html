@@ -384,7 +384,9 @@ var line = d3.svg.line()
 </section>
 
 <section style="text-align:center;padding-top:2em;">
-    <pre data-line="4,10"><code class="language-javascript">lines.append("path")
+    <pre data-line="6,12"><code class="language-javascript">lines = g.append("g");
+
+lines.append("path")
   .attr("class", "area")
   .attr("d", function(c) {
     return area(c.values);
@@ -426,6 +428,15 @@ lines.append("path")
 </section>
 
 <section id="snippet3" style="text-align:center;padding-top:3em;">
+    <pre data-line="6,7,8"><code class="language-javascript">// hide for now
+  circle = lines.append("circle")
+    .attr("r", 2.2)
+    .attr("opacity", 0)
+    </code></pre>
+</section>
+
+
+<section id="snippet3" style="text-align:center;padding-top:3em;">
     <pre data-line="6,7,8"><code class="language-javascript">g.append("rect")
   .attr("class", "background")
   .style("pointer-events", "all")
@@ -457,10 +468,152 @@ var mouseout = function() {
     </code></pre>
 </section>
 
-<section id="snippet3" style="text-align:center;padding-top:3em;">
-    <pre ><code class="language-javascript">var xpos = d3.mouse(this)[0];
-var date = xScale.invert(xpos);
+<section id="snippet3" style="text-align:center;padding-top:1em;font-size:80%;">
+    <pre data-line="4,5"><code class="language-javascript">//position circle
+var mousemove = function() {
+  // 'this' is current DOM element
+  var xpos = d3.mouse(this)[0];
+  var date = xScale.invert(xpos);
+  var index = 0;
+
+  circle
+    .attr("cx", xScale(date))
+    .attr("cy", function(c) {
+      index = findIndex(c.values, date);
+      return yScale(c.values[index].n);
+  });
+  //...
+}
     </code></pre>
+</section>
+
+<section id="inverter" style="text-align:center;padding-top:5em;">
+  <svg id="invertervis"></svg>
+</section>
+
+<section id="snippet3" style="text-align:center;padding-top:1em;font-size:80%;">
+    <pre data-line="11"><code class="language-javascript">//position circle
+var mousemove = function() {
+  // 'this' is current DOM element
+  var xpos = d3.mouse(this)[0];
+  var date = xScale.invert(xpos);
+  var index = 0;
+
+  circle
+    .attr("cx", xScale(date))
+    .attr("cy", function(c) {
+      index = findIndex(c.values, date);
+      return yScale(c.values[index].n);
+  });
+  //...
+}
+    </code></pre>
+</section>
+
+<section id="snippet3" style="text-align:center;padding-top:1em;font-size:80%;">
+    <pre data-line=""><code class="language-javascript">// find location in 'array' with
+// date nearest to 'date'
+var findIndex = function(array, date) {
+  var found = false;
+  var index = 1;
+  while (!found && index < array.length ) {
+    if(array[index].date > date) {
+      found = true;
+    } else {
+      index++;
+    }
+  }
+
+  return index - 1;
+};
+    </code></pre>
+</section>
+
+<section id="snippet3" style="text-align:center;padding-top:1em;font-size:80%;">
+    <pre data-line=""><code class="language-javascript">//position circle
+var mousemove = function() {
+  // 'this' is current DOM element
+  var xpos = d3.mouse(this)[0];
+  var date = xScale.invert(xpos);
+  var index = 0;
+
+  circle
+    .attr("cx", xScale(date))
+    .attr("cy", function(c) {
+      index = findIndex(c.values, date);
+      return yScale(c.values[index].n);
+  });
+  //...
+}
+    </code></pre>
+</section>
+
+<section id="snippet3" style="text-align:center;padding-top:4em;">
+    <pre data-line=""><code class="language-javascript">//create bisector
+// (binary search)
+var bisect = d3.bisector(function(d) { return d.date; })
+  .left;
+    </code></pre>
+</section>
+
+<section id="snippet3" style="text-align:center;padding-top:1em;font-size:80%;">
+    <pre data-line="11"><code class="language-javascript">//with bisector
+var mousemove = function() {
+  // 'this' is current DOM element
+  var xpos = d3.mouse(this)[0];
+  var date = xScale.invert(xpos);
+  var index = 0;
+
+  circle
+    .attr("cx", xScale(date))
+    .attr("cy", function(c) {
+      index = bisect(c.values, date, 0, c.values.length - 1);
+      return yScale(c.values[index].n);
+  });
+  //...
+}
+    </code></pre>
+</section>
+
+<section style="text-align:center;padding-top:1em;font-size:80%;">
+    <pre data-line="4,5"><code class="language-javascript">[
+  {"key":"clothing, beauty, & fashion",
+   "values":
+     [{"year":"2004", "n":141, "date":"2004-01-01"},
+      {"year":"2005", "n":203, "date":"2005-01-01"},...]
+  },
+  {"key":"computers & internet",
+   "values":
+     [{"year":"2004", "n":2489, "date":"2004-01-01"},
+      {"year":"2005", "n":2200, "date":"2005-01-01"},...]
+  },
+  ...
+]
+    </code></pre>
+</section>
+
+<section id="snippet3" style="text-align:center;padding-top:1em;font-size:80%;">
+    <pre data-line="11"><code class="language-javascript">//rounded dates
+var mousemove = function() {
+  // 'this' is current DOM element
+  var xpos = d3.mouse(this)[0];
+  var year = xScale.invert(xpos).getFullYear();
+  var date = format.parse('' + year);
+  var index = 0;
+
+  circle
+    .attr("cx", xScale(date))
+    .attr("cy", function(c) {
+      index = bisect(c.values, date, 0, c.values.length - 1);
+      return yScale(c.values[index].n);
+  });
+  //...
+}
+    </code></pre>
+</section>
+
+<section style="text-align:center;padding-top:3em;background:url(img/isotope.png);background-size:cover;">
+<!-- <img src="img/deaths_1870_inset.png" style="width:100%"/> -->
 </section>
 
 
@@ -532,10 +685,12 @@ var section = d3.selectAll("section"),
     follow = d3.select("#follow"),
     followAnchor = d3.select("#follow-anchor"),
     lorenz = d3.select("#lorenz"),
+    inverter = d3.select("#inverter"),
     interactive = d3.select("#interactive"),
     followIndex = section[0].indexOf(follow.node()),
     lorenzIndex = section[0].indexOf(lorenz.node());
     interIndex = section[0].indexOf(interactive.node());
+    inverterIndex = section[0].indexOf(inverter.node());
 
 function refollow() {
   followAnchor.style("top", (followIndex + (1 - mystack.scrollRatio()) / 2 - d3.event.offset) * 100 + "%");
@@ -559,6 +714,7 @@ function activate(d, i) {
   if (i === followIndex) mystack.on("scroll.follow", refollow);
   if (i === lorenzIndex) startLorenz();
   if (i === interIndex) startInteractive();
+  if (i === inverterIndex) startInverter();
   startVideo(i);
 }
 
@@ -566,11 +722,66 @@ function deactivate(d, i) {
   if (i === followIndex) mystack.on("scroll.follow", null);
   if (i === lorenzIndex) stopLorenz();
   if (i === interIndex) stopInteractive();
+  if (i === inverterIndex) stopInverter();
   stopVideo(i);
+}
+function stopInverter() {
+  var vis = d3.select("#invertervis")
+  d3.selectAll(vis.node().childNodes)
+    .remove()
+
+}
+
+function startInverter() {
+  var width = 1280,
+      height = 720;
+  width = window.innerWidth;
+  height = window.innerHeight;
+
+  var format = d3.time.format("%Y");
+  var xScale = d3.time.scale().range([0, width - (width / 8)]).domain([format.parse("2013"), format.parse("2014")]);
+  var line;
+  var text;
+  var vis = d3.select("#invertervis")
+    .style("position", "absolute")
+    .style("top", 0)
+    .style("left", 0)
+    .style("width", "100%")
+    .style("height", "100%");
+  vis.attr("width", width)
+  .attr("height", height);
+  var mouseover = function() {
+      var xpos = d3.mouse(this)[0];
+      var date = xScale.invert(xpos);
+      line.attr("x1", function() { return xScale(date) });
+      line.attr("x2", function() { return xScale(date) });
+      text.text(date.toLocaleDateString());
+      // text.attr("x", xScale(date));
+    };
+  vis.append("rect")
+    .attr("width", width - (width / 8))
+    .attr("height", 300)
+    .attr("fill", "#777")
+    .attr("x", width / 2 - ((width - (width / 8)) / 2))
+    .attr("y", (height / 2) )
+    .on("mousemove", mouseover);
+
+  line = vis.append("line")
+    .attr("y1", (height / 2) )
+    .attr("y2", (height / 2) + 300)
+    .attr("stroke-width", 4)
+    .attr("stroke", "black");
+  text = vis.append("text")
+  .attr("x", width / 2 - ((width - (width / 8)) / 2))
+  .attr("y", (height / 2) - 20 )
+  // .attr("text-anchor", "middle")
+  .attr("font-size", "55")
+
+      
+      
 }
 
 var interInterval;
-
 function startInteractive() {
   var width = 1280,
       height = 720;
