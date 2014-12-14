@@ -317,7 +317,7 @@ video {
     </code></pre>
 </section>
 
-<section id="snippet3" style="text-align:center;padding-top:0.2em;font-size:70%;">
+<section  style="text-align:center;padding-top:0.2em;font-size:70%;">
     <pre data-line="4,14"><code class="language-javascript">div.enter()
   .append("div")
   .attr("class", "chart")
@@ -427,7 +427,7 @@ lines.append("path")
   <svg id="intervis"></svg>
 </section>
 
-<section id="snippet3" style="text-align:center;padding-top:3em;">
+<section  style="text-align:center;padding-top:3em;">
     <pre data-line="6,7,8"><code class="language-javascript">// hide for now
   circle = lines.append("circle")
     .attr("r", 2.2)
@@ -436,7 +436,7 @@ lines.append("path")
 </section>
 
 
-<section id="snippet3" style="text-align:center;padding-top:3em;">
+<section  style="text-align:center;padding-top:3em;">
     <pre data-line="6,7,8"><code class="language-javascript">g.append("rect")
   .attr("class", "background")
   .style("pointer-events", "all")
@@ -448,7 +448,7 @@ lines.append("path")
     </code></pre>
 </section>
 
-<section id="snippet3" style="text-align:center;padding-top:2em;font-size:70%;">
+<section  style="text-align:center;padding-top:2em;font-size:70%;">
     <pre ><code class="language-javascript">var mouseover = function() {
   circle.attr("opacity", 1.0);
   d3.selectAll(".static_year")
@@ -468,7 +468,7 @@ var mouseout = function() {
     </code></pre>
 </section>
 
-<section id="snippet3" style="text-align:center;padding-top:1em;font-size:80%;">
+<section  style="text-align:center;padding-top:1em;font-size:80%;">
     <pre data-line="4,5"><code class="language-javascript">//position circle
 var mousemove = function() {
   // 'this' is current DOM element
@@ -491,7 +491,7 @@ var mousemove = function() {
   <svg id="invertervis"></svg>
 </section>
 
-<section id="snippet3" style="text-align:center;padding-top:1em;font-size:80%;">
+<section  style="text-align:center;padding-top:1em;font-size:80%;">
     <pre data-line="11"><code class="language-javascript">//position circle
 var mousemove = function() {
   // 'this' is current DOM element
@@ -510,7 +510,7 @@ var mousemove = function() {
     </code></pre>
 </section>
 
-<section id="snippet3" style="text-align:center;padding-top:1em;font-size:80%;">
+<section  style="text-align:center;padding-top:1em;font-size:80%;">
     <pre data-line=""><code class="language-javascript">// find location in 'array' with
 // date nearest to 'date'
 var findIndex = function(array, date) {
@@ -529,7 +529,7 @@ var findIndex = function(array, date) {
     </code></pre>
 </section>
 
-<section id="snippet3" style="text-align:center;padding-top:1em;font-size:80%;">
+<section  style="text-align:center;padding-top:1em;font-size:80%;">
     <pre data-line=""><code class="language-javascript">//position circle
 var mousemove = function() {
   // 'this' is current DOM element
@@ -548,7 +548,7 @@ var mousemove = function() {
     </code></pre>
 </section>
 
-<section id="snippet3" style="text-align:center;padding-top:4em;">
+<section  style="text-align:center;padding-top:4em;">
     <pre data-line=""><code class="language-javascript">//create bisector
 // (binary search)
 var bisect = d3.bisector(function(d) { return d.date; })
@@ -556,7 +556,7 @@ var bisect = d3.bisector(function(d) { return d.date; })
     </code></pre>
 </section>
 
-<section id="snippet3" style="text-align:center;padding-top:1em;font-size:80%;">
+<section  style="text-align:center;padding-top:1em;font-size:80%;">
     <pre data-line="11"><code class="language-javascript">//with bisector
 var mousemove = function() {
   // 'this' is current DOM element
@@ -573,6 +573,10 @@ var mousemove = function() {
   //...
 }
     </code></pre>
+</section>
+
+<section style="text-align:center;padding-top:3em;background:url(img/magic.gif);background-size:auto; background-repeat:repeat;">
+<!-- <img src="img/deaths_1870_inset.png" style="width:100%"/> -->
 </section>
 
 <section style="text-align:center;padding-top:1em;font-size:80%;">
@@ -592,8 +596,10 @@ var mousemove = function() {
     </code></pre>
 </section>
 
-<section id="snippet3" style="text-align:center;padding-top:1em;font-size:80%;">
-    <pre data-line="11"><code class="language-javascript">//rounded dates
+<section  style="text-align:center;padding-top:1em;font-size:80%;">
+    <pre data-line="6,7,8"><code class="language-javascript">//rounded dates
+var format = d3.time.format("%Y");
+
 var mousemove = function() {
   // 'this' is current DOM element
   var xpos = d3.mouse(this)[0];
