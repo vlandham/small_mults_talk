@@ -428,15 +428,6 @@ lines.append("path")
 </section>
 
 <section  style="text-align:center;padding-top:3em;">
-    <pre data-line="6,7,8"><code class="language-javascript">// hide for now
-  circle = lines.append("circle")
-    .attr("r", 2.2)
-    .attr("opacity", 0)
-    </code></pre>
-</section>
-
-
-<section  style="text-align:center;padding-top:3em;">
     <pre data-line="6,7,8"><code class="language-javascript">g.append("rect")
   .attr("class", "background")
   .style("pointer-events", "all")
@@ -445,6 +436,14 @@ lines.append("path")
   .on("mouseover", mouseover)
   .on("mousemove", mousemove)
   .on("mouseout", mouseout);
+    </code></pre>
+</section>
+
+<section  style="text-align:center;padding-top:3em;">
+    <pre ><code class="language-javascript">// hide for now
+  circle = lines.append("circle")
+    .attr("r", 2.2)
+    .attr("opacity", 0)
     </code></pre>
 </section>
 
@@ -673,6 +672,7 @@ d3.select("#button-wrap")
 
 <script src="js/prism.js"></script>
 <script src="js/d3.min.js"></script>
+<script src="js/cubehelix.js"></script>
 <script src="js/stack.v1.min.js"></script>
 <script>
 
@@ -768,14 +768,24 @@ function stopInverter() {
 
 function startInverter() {
   var width = 1280,
-      height = 720;
+  height = 720;
+
   width = window.innerWidth;
   height = window.innerHeight;
+  var xpadding = Math.round(width / 8);
+  var ystart = Math.round(height / 4);
+  var rectHeight = Math.round(height / 4);
 
   var format = d3.time.format("%Y");
-  var xScale = d3.time.scale().range([0, width - (width / 8)]).domain([format.parse("2013"), format.parse("2014")]);
-  var line;
-  var text;
+  var xScale = d3.time.scale()
+  .range([0, width - xpadding ])
+  .domain([format.parse("2013"), format.parse("2014")]);
+  var cScale = d3.scale.cubehelix()
+  .range([d3.hsl(276, .6, 0.2), d3.hsl(96, .6, 0.9)])
+  .domain([0, width - xpadding])
+
+  var line, rect;
+  var date_string, color_string, raw_string;
   var vis = d3.select("#invertervis")
     .style("position", "absolute")
     .style("top", 0)
@@ -783,36 +793,58 @@ function startInverter() {
     .style("width", "100%")
     .style("height", "100%");
   vis.attr("width", width)
-  .attr("height", height);
-  var mouseover = function() {
+    .attr("height", height);
+  var mouseover = function(e) {
+    console.log(d3.event.target);
       var xpos = d3.mouse(this)[0];
       var date = xScale.invert(xpos);
+      var color = cScale(xpos);
       line.attr("x1", function() { return xScale(date) });
       line.attr("x2", function() { return xScale(date) });
-      text.text(date.toLocaleDateString());
-      // text.attr("x", xScale(date));
+      date_string.text(date.toLocaleDateString());
+      raw_string.text(xpos);
+      raw_string.attr("x", xScale(date));
+      //color_string.text(color);
+      rect.attr("fill", color);
     };
-  vis.append("rect")
-    .attr("width", width - (width / 8))
-    .attr("height", 300)
+    g = vis.append("g")
+    .attr("transform", "translate(" + Math.round(width / 2 - ((width - xpadding) / 2)) + "," +ystart + ")")
+    //.attr("x", Math.round(width / 2 - ((width - xpadding) / 2)))
+    //.attr("y", ystart )
+    rect = g.append("rect")
+    .attr("width", width - xpadding)
+    .attr("height", rectHeight)
+    .attr("x", 0)
+    .attr("y", 0 )
     .attr("fill", "#777")
-    .attr("x", width / 2 - ((width - (width / 8)) / 2))
-    .attr("y", (height / 2) )
-    .on("mousemove", mouseover);
+    .style("pointer-events", "all")
+    .on("mousemove", mouseover)
 
-  line = vis.append("line")
-    .attr("y1", (height / 2) )
-    .attr("y2", (height / 2) + 300)
+  line = g.append("line")
+    .attr("y1", 0 )
+    .attr("y2",  rectHeight)
+    .style("pointer-events", "none")
     .attr("stroke-width", 4)
     .attr("stroke", "black");
-  text = vis.append("text")
+
+  date_string = vis.append("text")
   .attr("x", width / 2 - ((width - (width / 8)) / 2))
-  .attr("y", (height / 2) - 20 )
+  .attr("y", ystart - 20 )
   // .attr("text-anchor", "middle")
   .attr("font-size", "55")
 
-      
-      
+  color_string = vis.append("text")
+  .attr("x", width - xpadding / 2)
+  .attr("y", ystart - 20)
+  .attr("text-anchor", "end")
+  .attr("font-size", "55")
+
+  raw_string = g.append("text")
+  .attr("y", rectHeight)
+  .attr("dy", 46)
+  .attr("text-anchor", "middle")
+  .attr("font-size", "55")
+
 }
 
 var interInterval;
