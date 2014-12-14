@@ -234,23 +234,20 @@ var setupIsoytpe = function() {
     layoutMode: 'fitRows',
     getSortData: {
       count: function(e) {
-        var d, sum;
-        d = d3.select(e).datum();
-        sum = d3.sum(d.values, function(d) {
+        var d = d3.select(e).datum();
+        var sum = d3.sum(d.values, function(d) {
           return d.n;
         });
         return sum * -1;
       },
-    name: function(e) {
-      var d;
-      d = d3.select(e).datum();
-      return d.key;
-    }
+      name: function(e) {
+        var d = d3.select(e).datum();
+        return d.key;
+      }
     }
   });
-  return $("#vis").isotope({
-    sortBy: 'count'
-  });
+
+  $("#vis").isotope({sortBy: 'count'});
 };
 
 var plotData = function(selector, data, plot) {
@@ -295,8 +292,7 @@ $(document).ready(function() {
   d3.select("#button-wrap")
     .selectAll("div")
     .on("click", function() {
-      var id;
-      id = d3.select(this).attr("id");
+      var id = d3.select(this).attr("id");
       d3.select("#button-wrap").selectAll("div").classed("active", false);
       d3.select("#" + id).classed("active", true);
       return $("#vis").isotope({
