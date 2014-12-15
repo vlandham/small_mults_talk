@@ -317,13 +317,33 @@ video {
     </code></pre>
 </section>
 
-<section  style="text-align:center;padding-top:0.2em;font-size:70%;">
-    <pre data-line="4,14"><code class="language-javascript">div.enter()
+<section style="text-align:center;padding-top:1em;font-size:80%;">
+    <pre><code class="language-javascript">var div = d3.select(this)
+  .selectAll(".chart")
+  .data(data);
+  
+div.enter()
   .append("div")
   .attr("class", "chart")
   .append("svg").append("g");
+    </code></pre>
+</section>
 
-var svg = div.select("svg")
+<section style="padding-top:1em;">
+<img src="img/image_mash/image_mash.001.png" style="width:100%"/>
+</section>
+
+<section style="padding-top:1em;">
+<img src="img/image_mash/image_mash.002.png" style="width:100%"/>
+</section>
+
+<section style="padding-top:1em;">
+<img src="img/image_mash/image_mash.003.png" style="width:100%"/>
+</section>
+
+
+<section  style="text-align:center;padding-top:3em;font-size:70%;">
+    <pre data-line="9,11"><code class="language-javascript">var svg = div.select("svg")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom);
 
@@ -786,6 +806,7 @@ function startInverter() {
 
   var line, rect;
   var date_string, color_string, raw_string;
+  var years = ["2013", "2014"];
   var vis = d3.select("#invertervis")
     .style("position", "absolute")
     .style("top", 0)
@@ -832,6 +853,16 @@ function startInverter() {
   .attr("y", ystart - 20 )
   // .attr("text-anchor", "middle")
   .attr("font-size", "55")
+
+  year_string = vis.selectAll(".year")
+    .data(years)
+  year_string.enter()
+    .append("text")
+    .attr("class", "year")
+    .attr("x", function(d,i) { return (i == 0) ? (width / 2 - ((width - (width / 8)) / 2)) + 20 : (width - (xpadding + 20)); })
+    .attr("y", ystart + height)
+    .text(function(d) { return d; });
+      
 
   color_string = vis.append("text")
   .attr("x", width - xpadding / 2)
