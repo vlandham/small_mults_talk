@@ -34,7 +34,7 @@ section {
 .title {
   text-align:center;
   font-size:500%;
-  line-height: 0.6em;
+  /* line-height: 1.2; */
 }
 
 .caption {
@@ -97,6 +97,15 @@ video {
 <img src="img/murray.png" style="width:100%"/>
 </section>
 
+<section>
+  <video loop>
+    <source src="video/manifest.mp4" type="video/mp4" />
+    </video>
+    <p class="caption"><a href="http://michaelporath.com/projects/manifest-destiny/#overview">manifest destiny</a></p>
+    </section>
+
+
+
 <section style="text-align:center;padding-top:5em;">
 <p>Small multiples use the same basic graphic or chart to display difference slices of a data set
 </section>
@@ -106,7 +115,7 @@ video {
 </section>
 
 <section style="text-align:center;padding-top:5em;">
-<p class="title">Benefits</p>
+<p class="title">Uses</p>
 </section>
 
 <section style="padding-top:4em;text-align:center;">
@@ -120,7 +129,7 @@ video {
 </section>
 
 <section style="text-align:center;padding-top:5em;">
-<p style="font-size:200%">Tufte</p>
+<p style="font-size:200%">Origins</p>
 </section>
 
 <!-- <section style="text-align:center;padding-top:5em;"> -->
@@ -149,10 +158,6 @@ video {
 
 <section style="text-align:center;padding-top:5em;">
 <p class="title">Interaction</p>
-</section>
-
-<section style="text-align:center;padding-top:5em;">
-<p class="title">Linked Small Multiples</p>
 </section>
 
 <section style="text-align:center;padding-top:5em;">
@@ -247,6 +252,13 @@ video {
     <p class="caption"><a href="http://www.nytimes.com/interactive/2014/09/14/sunday-review/unplanned-pregnancies.html?smid=tw-share">unplanned pregnancies</a></p>
     </section>
 
+<section style="text-align:center;padding-top:3em;">
+  <video loop>
+    <source src="video/fracking.mp4" type="video/mp4" style="width:100%;" />
+    </video>
+    <p class="caption"><a href="">fracking</a></p>
+</section>
+
 
 <section>
   <video loop>
@@ -282,7 +294,26 @@ video {
 </section>
 
 <section style="text-align:center;padding-top:3em;background:url(img/metadata.png);background-size:cover;">
-<!-- <img src="img/deaths_1870_inset.png" style="width:100%"/> -->
+  <p class="title">Data</p>
+</section>
+
+<section style="text-align:center;padding-top:1em;">
+    <pre ><code class="language-javascript">
+"year"  "category"  "n"
+"2004"  "clothing, beauty, & fashion"   141
+"2004"  "computers & internet"  2489
+"2004"  "education" 151
+"2005"  "clothing, beauty, & fashion"   203
+"2005"  "computers & internet"  2200
+"2005"  "education" 201
+"2005"  "food & drink"  324
+"2005"  "grab bag"  248
+"2005"  "health & fitness"  590
+    </code></pre>
+</section>
+
+<section style="text-align:center;padding-top:3em;">
+<img src="img/final.png" style="width:100%"/>
 </section>
 
 <section style="text-align:center;padding-top:1em;">
@@ -317,7 +348,18 @@ video {
     </code></pre>
 </section>
 
-<section style="text-align:center;padding-top:1em;font-size:80%;">
+<section style="text-align:center;padding-top:5em;font-size:90%;">
+    <pre><code class="language-javascript">data = d3.nest()
+  .key(function(d) { return d.category;})
+  .sortValues(function(a, b) {
+    return d3.ascending(a.date, b.date);
+  })
+  .entries(rawData);
+    </code></pre>
+</section>
+
+
+<section style="text-align:center;padding-top:5em;font-size:90%;">
     <pre><code class="language-javascript">var div = d3.select(this)
   .selectAll(".chart")
   .data(data);
@@ -359,20 +401,43 @@ g.append("rect")
     </code></pre>
 </section>
 
-<section style="text-align:center;padding-top:4em;">
+<section style="text-align:center;padding-top:2em;">
     <pre><code class="language-css">.chart {
   float: left;
   padding-right: 5px;
   padding-bottom: 5px;
-  padding-top:0;
-  padding-left:0;
+  padding-top: 0;
+  padding-left: 0;
 }
 
+.background {
+  fill: black;
+}
     </code></pre>
   </section>
 
 <section style="text-align:center;padding-top:1em;">
 <img src="img/blocks.png" style="width:100%"/>
+</section>
+
+<section style="padding-top:1em;">
+<img src="img/image_mash/image_mash.001.png" style="width:100%"/>
+</section>
+
+<section style="padding-top:1em;">
+<img src="img/image_mash/image_mash.002.png" style="width:100%"/>
+</section>
+
+<section style="padding-top:1em;">
+<img src="img/image_mash/image_mash.003.png" style="width:100%"/>
+</section>
+
+<section style="padding-top:1em;">
+<img src="img/image_mash/image_mash.004.png" style="width:100%"/>
+</section>
+
+<section style="padding-top:1em;">
+<img src="img/image_mash/image_mash.005.png" style="width:100%"/>
 </section>
 
 <section style="text-align:center;padding-top:3em;">
@@ -386,24 +451,8 @@ var line = d3.svg.line()
     </code></pre>
   </section>
 
-<section style="text-align:center;padding-top:1em;font-size:80%;">
-    <pre data-line="4,5"><code class="language-javascript">[
-  {"key":"clothing, beauty, & fashion",
-   "values":
-     [{"year":"2004", "n":141, "date":"2004-01-01"},
-      {"year":"2005", "n":203, "date":"2005-01-01"},...]
-  },
-  {"key":"computers & internet",
-   "values":
-     [{"year":"2004", "n":2489, "date":"2004-01-01"},
-      {"year":"2005", "n":2200, "date":"2005-01-01"},...]
-  },
-  ...
-]
-    </code></pre>
-</section>
 
-<section style="text-align:center;padding-top:2em;">
+<section style="text-align:center;padding-top:1em;font-size:90%;">
     <pre data-line="6,12"><code class="language-javascript">lines = g.append("g");
 
 lines.append("path")
@@ -447,6 +496,11 @@ lines.append("path")
   <svg id="intervis"></svg>
 </section>
 
+
+<section style="text-align:center;padding-top:5em;">
+  <p class="title">Scrubbable</p>
+</section>
+
 <section  style="text-align:center;padding-top:3em;">
     <pre data-line="6,7,8"><code class="language-javascript">g.append("rect")
   .attr("class", "background")
@@ -468,7 +522,7 @@ lines.append("path")
 </section>
 
 <section  style="text-align:center;padding-top:2em;font-size:70%;">
-    <pre ><code class="language-javascript">var mouseover = function() {
+    <pre data-line="2,9"><code class="language-javascript">var mouseover = function() {
   circle.attr("opacity", 1.0);
   d3.selectAll(".static_year")
     .classed("hidden", true);
@@ -615,6 +669,11 @@ var mousemove = function() {
     </code></pre>
 </section>
 
+<section style="text-align:center;padding-top:3em;background:url(img/broken.png);background-size:cover;">
+<!-- <img src="img/deaths_1870_inset.png" style="width:100%"/> -->
+</section>
+
+
 <section  style="text-align:center;padding-top:1em;font-size:80%;">
     <pre data-line="6,7,8"><code class="language-javascript">//rounded dates
 var format = d3.time.format("%Y");
@@ -635,6 +694,11 @@ var mousemove = function() {
   //...
 }
     </code></pre>
+</section>
+
+
+<section style="text-align:center;padding-top:5em;">
+  <p class="title">Sortable</p>
 </section>
 
 <section style="text-align:center;padding-top:3em;background:url(img/isotope.png);background-size:cover;">
@@ -666,29 +730,37 @@ var mousemove = function() {
     </code></pre>
 </section>
 
-<section style="text-align:center;padding-top:1em;font-size:80%;">
-    <pre ><code class="language-javascript">var setupIsoytpe = function() {
-d3.select("#button-wrap")
+<section  style="text-align:center;padding-top:5em;">
+    <pre ><code class="language-javascript">$("#vis").isotope({sortBy: 'count'});
+    </code></pre>
+</section>
+
+<section style="text-align:center;padding-top:3em;font-size:90%;">
+    <pre ><code class="language-javascript">d3.select("#button-wrap")
   .selectAll("div")
   .on("click", function() {
     var id = d3.select(this).attr("id");
 
     $("#vis").isotope({sortBy: id});
-    // switch active button
+    // ...
   });
 });
     </code></pre>
 </section>
 
 
+<section style="text-align:center;padding-top:1em;">
+<img src="img/final.png" style="width:100%"/>
+</section>
 
 
 <section id="lorenz" style="text-align:center;padding-top:0;">
   <canvas></canvas>
-  <p style="position:absolute;z-index:1;padding-top:5em;left:0;width:100%;text-shadow:0 1px 0 #000;">Use <i>activate</i> and <i>deactivate</i> events
-    <br>to enable complex animations
-    <br>only when visible.
-</section>
+  <p class="title">Thanks</p>
+  </section>
+
+<section style="text-align:center;padding-top:0;">
+  </section>
 
 <script src="js/prism.js"></script>
 <script src="js/d3.min.js"></script>
@@ -766,7 +838,7 @@ function stopVideo(i) {
 
 function activate(d, i) {
   if (i === followIndex) mystack.on("scroll.follow", refollow);
-  if (i === lorenzIndex) startLorenz();
+  // if (i === lorenzIndex) startLorenz();
   if (i === interIndex) startInteractive();
   if (i === inverterIndex) startInverter();
   startVideo(i);
@@ -774,7 +846,7 @@ function activate(d, i) {
 
 function deactivate(d, i) {
   if (i === followIndex) mystack.on("scroll.follow", null);
-  if (i === lorenzIndex) stopLorenz();
+  // if (i === lorenzIndex) stopLorenz();
   if (i === interIndex) stopInteractive();
   if (i === inverterIndex) stopInverter();
   stopVideo(i);

@@ -190,9 +190,9 @@ var SmallMultiples = function() {
 
   var mousemove = function() {
     var xpos = d3.mouse(this)[0];
-    var year = xScale.invert(xpos).getFullYear();
-    var date = format.parse('' + year);
-    // var date = xScale.invert(xpos);
+    // var year = xScale.invert(xpos).getFullYear();
+    // var date = format.parse('' + year);
+    var date = xScale.invert(xpos);
     var index = 0;
 
     circle
@@ -261,11 +261,12 @@ var transformData = function(rawData) {
     d.date = format.parse(d.year);
     return d.n = +d.n;
   });
-  nest = d3.nest().key(function(d) {
-    return d.category;
-  }).sortValues(function(a, b) {
-    return d3.ascending(a.date, b.date);
-  }).entries(rawData);
+  nest = d3.nest()
+    .key(function(d) { return d.category;})
+    .sortValues(function(a, b) {
+      return d3.ascending(a.date, b.date);
+    })
+    .entries(rawData);
   return nest;
 };
 
