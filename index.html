@@ -68,6 +68,7 @@ video {
 }
 
 </style>
+<div id="pagenumber" style="z-index:100;position:fixed;left:1%;bottom:7%;"></div>
 
 <section style="text-align:center;padding-top:5em;">
 <p style="font-size:120%;"><b>Interactive Small Multiples</b></p>
@@ -144,6 +145,10 @@ video {
 <p style="font-size:200%">Origins</p>
 </section>
 
+<section style="text-align:center;padding-top:5em;">
+<p style="font-size:200%">Tufte</p>
+</section>
+
 <!-- <section style="text-align:center;padding-top:5em;"> -->
 <!-- <p>Illustrations of postage-stamp size are indexed by category or a label, sequenced over time like the frames of a movie, or ordered by a quantitative variable not used in the single image itself.   -->
 <!-- </section> -->
@@ -171,6 +176,13 @@ video {
 <section style="text-align:center;padding-top:5em;">
 <p class="title">Interaction</p>
 </section>
+
+<section>
+  <video loop>
+    <source src="video/manifest.mp4" type="video/mp4" />
+    </video>
+    <p class="caption"><a href="http://michaelporath.com/projects/manifest-destiny/#overview">manifest destiny</a></p>
+    </section>
 
 <section style="text-align:center;padding-top:5em;">
 <p class="title">Updateable</p>
@@ -396,7 +408,7 @@ div.enter()
 </section>
 
 
-<section  style="text-align:center;padding-top:3em;font-size:70%;">
+<section  style="padding-top:0em;font-size:100%;">
     <pre data-line="9,11"><code class="language-javascript">var svg = div.select("svg")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom);
@@ -409,8 +421,7 @@ g.append("rect")
   .attr("class", "background")
   .style("pointer-events", "all")
   .attr("width", width + margin.right)
-  .attr("height", height);
-    </code></pre>
+  .attr("height", height);</code></pre>
 </section>
 
 <section style="text-align:center;padding-top:2em;">
@@ -428,7 +439,7 @@ g.append("rect")
     </code></pre>
   </section>
 
-<section style="text-align:center;padding-top:1em;">
+<section style="text-align:center;padding-top:0em;">
 <img src="img/blocks.png" style="width:100%"/>
 </section>
 
@@ -464,7 +475,7 @@ var line = d3.svg.line()
   </section>
 
 
-<section style="text-align:center;padding-top:1em;font-size:90%;">
+<section style="padding-top:0em;">
     <pre data-line="6,12"><code class="language-javascript">lines = g.append("g");
 
 lines.append("path")
@@ -477,11 +488,10 @@ lines.append("path")
   .attr("class", "line")
   .attr("d", function(c) {
     return line(c.values);
-  });
-    </code></pre>
+  });</code></pre>
 </section>
 
-<section style="text-align:center;padding-top:2em;">
+<section style="padding-top:2em;">
   <pre> <code class="language-css">.area {
   fill: #cec6b9;
 }
@@ -495,11 +505,11 @@ lines.append("path")
     </code></pre>
 </section>
 
-<section style="text-align:center;padding-top:1em;">
+<section style="text-align:center;padding-top:0em;">
 <img src="img/area.png" style="width:100%"/>
 </section>
 
-<section style="text-align:center;padding-top:1em;">
+<section style="text-align:center;padding-top:0.5em;">
 <img src="img/static.png" style="width:100%"/>
 </section>
 
@@ -533,15 +543,18 @@ lines.append("path")
     </code></pre>
 </section>
 
-<section  style="text-align:center;padding-top:2em;font-size:70%;">
-    <pre data-line="2,9"><code class="language-javascript">var mouseover = function() {
+<section  style="padding-top:3em;font-size:100%;">
+    <pre data-line="2"><code class="language-javascript">var mouseover = function() {
   circle.attr("opacity", 1.0);
   d3.selectAll(".static_year")
     .classed("hidden", true);
   return mousemove.call(this);
 };
+    </code></pre>
+</section>
 
-var mouseout = function() {
+<section  style="padding-top:3em;font-size:100%;">
+    <pre data-line="3"><code class="language-javascript">var mouseout = function() {
   circle.attr("opacity", 0);
   d3.selectAll(".static_year")
     .classed("hidden", false);
@@ -686,9 +699,8 @@ var mousemove = function() {
 </section>
 
 
-<section  style="text-align:center;padding-top:1em;font-size:80%;">
-    <pre data-line="6,7,8"><code class="language-javascript">//rounded dates
-var format = d3.time.format("%Y");
+<section  style="text-align:center;padding-top:0em;font-size:80%;">
+    <pre data-line="6,7,8"><code class="language-javascript">var format = d3.time.format("%Y");
 
 var mousemove = function() {
   // 'this' is current DOM element
@@ -704,8 +716,7 @@ var mousemove = function() {
       return yScale(c.values[index].n);
   });
   //...
-}
-    </code></pre>
+}</code></pre>
 </section>
 
 
@@ -717,7 +728,7 @@ var mousemove = function() {
 <!-- <img src="img/deaths_1870_inset.png" style="width:100%"/> -->
 </section>
 
-<section style="text-align:center;padding-top:1em;font-size:80%;">
+<section style="text-align:center;padding-top:0em;font-size:80%;">
     <pre data-line="6,13"><code class="language-javascript">var setupIsoytpe = function() {
   $("#vis").isotope({
     itemSelector: '.chart',
@@ -736,10 +747,7 @@ var mousemove = function() {
       }
     }
   });
-
-  $("#vis").isotope({sortBy: 'count'});
-};
-    </code></pre>
+};</code></pre>
 </section>
 
 <section  style="text-align:center;padding-top:5em;">
@@ -854,6 +862,7 @@ function activate(d, i) {
   if (i === interIndex) startInteractive();
   if (i === inverterIndex) startInverter();
   startVideo(i);
+  setPageNumber(i);
 }
 
 function deactivate(d, i) {
@@ -867,7 +876,10 @@ function stopInverter() {
   var vis = d3.select("#invertervis")
   d3.selectAll(vis.node().childNodes)
     .remove()
+}
 
+function setPageNumber(i) {
+ d3.select("#pagenumber").html(i + 1);
 }
 
 function startInverter() {
@@ -900,7 +912,6 @@ function startInverter() {
   vis.attr("width", width)
     .attr("height", height);
   var mouseover = function(e) {
-    console.log(d3.event.target);
       var xpos = d3.mouse(this)[0];
       var date = xScale.invert(xpos);
       var color = cScale(xpos);
@@ -943,8 +954,10 @@ function startInverter() {
   year_string.enter()
     .append("text")
     .attr("class", "year")
+    .attr("fill", "white")
+    .attr("pointer-events", "none")
     .attr("x", function(d,i) { return (i == 0) ? (width / 2 - ((width - (width / 8)) / 2)) + 20 : (width - (xpadding + 20)); })
-    .attr("y", ystart + height)
+    .attr("y", ystart + (rectHeight - 20))
     .text(function(d) { return d; });
       
 
@@ -991,7 +1004,6 @@ function startInteractive() {
   var animate = function () {
     data.forEach(function(d) {
       /* var param = (d.dir) ? width : height; */
-      /* console.log(d); */
       /* d[d.dir ? 'x' : 'y'] = getRandomInt(20, (param - 20)); */
       d.y = getRandomInt(size, (height - size));
       d.dir = !d.dir;
