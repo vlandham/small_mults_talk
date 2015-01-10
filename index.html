@@ -185,6 +185,10 @@ video {
     </section>
 
 <section style="text-align:center;padding-top:5em;">
+<p class="title">Linked</p>
+</section>
+
+<section style="text-align:center;padding-top:5em;">
 <p class="title">Updateable</p>
 </section>
 
@@ -284,12 +288,12 @@ video {
 </section>
 
 
-<section>
-  <video loop>
-    <source src="video/ambulance_scrub.mp4" type="video/mp4" />
-    </video>
-    <p class="caption"><a href="https://projects.propublica.org/graphics/ambulances">ambulances</a></p>
-    </section>
+<!-- <section> -->
+<!--   <video loop> -->
+<!--     <source src="video/ambulance_scrub.mp4" type="video/mp4" /> -->
+<!--     </video> -->
+<!--     <p class="caption"><a href="https://projects.propublica.org/graphics/ambulances">ambulances</a></p> -->
+<!--     </section> -->
 
 
 <section style="text-align:center;padding-top:5em;">
@@ -382,9 +386,26 @@ video {
     </code></pre>
 </section>
 
+<section style="text-align:center;padding-top:1em;font-size:80%;">
+    <pre><code class="language-javascript">[
+  {"key":"clothing, beauty, & fashion",
+   "values":
+     [{"year":"2004", "n":141, "date":"2004-01-01"},
+      {"year":"2005", "n":203, "date":"2005-01-01"},...]
+  },
+  {"key":"computers & internet",
+   "values":
+     [{"year":"2004", "n":2489, "date":"2004-01-01"},
+      {"year":"2005", "n":2200, "date":"2005-01-01"},...]
+  },
+  ...
+]
+    </code></pre>
+</section>
+
 
 <section style="text-align:center;padding-top:5em;font-size:90%;">
-    <pre><code class="language-javascript">var div = d3.select(this)
+    <pre><code class="language-javascript">var div = d3.select("#vis")
   .selectAll(".chart")
   .data(data);
   
@@ -407,17 +428,34 @@ div.enter()
 <img src="img/image_mash/image_mash.003.png" style="width:100%"/>
 </section>
 
+<section style="text-align:center;padding-top:5em;font-size:90%;">
+    <pre data-line="3,8"><code class="language-javascript">var div = d3.select("#vis")
+  .selectAll(".chart")
+  .data(data);
+  
+div.enter()
+  .append("div")
+  .attr("class", "chart")
+  .append("svg").append("g");
+    </code></pre>
+</section>
 
-<section  style="padding-top:0em;font-size:100%;">
-    <pre data-line="9,11"><code class="language-javascript">var svg = div.select("svg")
+
+
+<section  style="padding-top:3em;font-size:100%;">
+    <pre ><code class="language-javascript">var svg = div.select("svg")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom);
 
 var g = svg
   .select("g")
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    
-g.append("rect")
+  .attr("transform", "translate(" + margin.left + 
+        "," + margin.top + ")");
+    </code></pre>
+</section>
+
+<section  style="padding-top:5em;font-size:100%;">
+    <pre data-line="3"><code class="language-javascript">g.append("rect")
   .attr("class", "background")
   .style("pointer-events", "all")
   .attr("width", width + margin.right)
@@ -464,13 +502,14 @@ g.append("rect")
 </section>
 
 <section style="text-align:center;padding-top:3em;">
-    <pre><code class="language-javascript">var area = d3.svg.area()
+    <pre><code class="language-javascript">var line = d3.svg.line()
+  .x(function(d) { return xScale(d.date); })
+  .y(function(d) { return yScale(d.n); });
+
+var area = d3.svg.area()
   .x(function(d) { return xScale(d.date); })
   .y0(height).y1(function(d) { return yScale(d.n); });
 
-var line = d3.svg.line()
-  .x(function(d) { return xScale(d.date); })
-  .y(function(d) { return yScale(d.n); });
     </code></pre>
   </section>
 
@@ -567,8 +606,7 @@ lines.append("path")
 </section>
 
 <section  style="text-align:center;padding-top:1em;font-size:80%;">
-    <pre data-line="4,5"><code class="language-javascript">//position circle
-var mousemove = function() {
+    <pre data-line="4,5"><code class="language-javascript">var mousemove = function() {
   // 'this' is current DOM element
   var xpos = d3.mouse(this)[0];
   var date = xScale.invert(xpos);
@@ -584,14 +622,23 @@ var mousemove = function() {
 }
     </code></pre>
 </section>
+
+<section  style="padding-top:5em;font-size:100%;">
+    <pre ><code class="language-javascript">var format = d3.time.format("%Y");
+    
+var xScale = d3.time.scale()
+  .domain([format.parse("2013"), format.parse("2014")]);
+  .range([0, width])
+    </code></pre>
+</section>
+
 
 <section id="inverter" style="text-align:center;padding-top:5em;">
   <svg id="invertervis"></svg>
 </section>
 
-<section  style="text-align:center;padding-top:1em;font-size:80%;">
-    <pre data-line="11"><code class="language-javascript">//position circle
-var mousemove = function() {
+<section  style="text-align:center;padding-top:1em;font-size:90%;">
+    <pre data-line="8"><code class="language-javascript">var mousemove = function() {
   // 'this' is current DOM element
   var xpos = d3.mouse(this)[0];
   var date = xScale.invert(xpos);
@@ -604,8 +651,24 @@ var mousemove = function() {
       return yScale(c.values[index].n);
   });
   //...
-}
-    </code></pre>
+}</code></pre>
+</section>
+
+<section  style="text-align:center;padding-top:1em;font-size:90%;">
+    <pre data-line="10,11"><code class="language-javascript">var mousemove = function() {
+  // 'this' is current DOM element
+  var xpos = d3.mouse(this)[0];
+  var date = xScale.invert(xpos);
+  var index = 0;
+
+  circle
+    .attr("cx", xScale(date))
+    .attr("cy", function(c) {
+      index = findIndex(c.values, date);
+      return yScale(c.values[index].n);
+  });
+  //...
+}</code></pre>
 </section>
 
 <section  style="text-align:center;padding-top:1em;font-size:80%;">
@@ -627,9 +690,8 @@ var findIndex = function(array, date) {
     </code></pre>
 </section>
 
-<section  style="text-align:center;padding-top:1em;font-size:80%;">
-    <pre data-line=""><code class="language-javascript">//position circle
-var mousemove = function() {
+<section  style="text-align:center;padding-top:1em;font-size:90%;">
+    <pre data-line=""><code class="language-javascript">var mousemove = function() {
   // 'this' is current DOM element
   var xpos = d3.mouse(this)[0];
   var date = xScale.invert(xpos);
@@ -642,8 +704,7 @@ var mousemove = function() {
       return yScale(c.values[index].n);
   });
   //...
-}
-    </code></pre>
+}</code></pre>
 </section>
 
 <section  style="text-align:center;padding-top:4em;">
@@ -700,7 +761,7 @@ var mousemove = function() {
 
 
 <section  style="text-align:center;padding-top:0em;font-size:80%;">
-    <pre data-line="6,7,8"><code class="language-javascript">var format = d3.time.format("%Y");
+    <pre data-line="6,7"><code class="language-javascript">var format = d3.time.format("%Y");
 
 var mousemove = function() {
   // 'this' is current DOM element
@@ -728,8 +789,37 @@ var mousemove = function() {
 <!-- <img src="img/deaths_1870_inset.png" style="width:100%"/> -->
 </section>
 
-<section style="text-align:center;padding-top:0em;font-size:80%;">
-    <pre data-line="6,13"><code class="language-javascript">var setupIsoytpe = function() {
+<section style="text-align:center;padding-top:0em;font-size:70%;">
+    <pre ><code class="language-javascript">var setupIsoytpe = function() {
+  $("#vis").isotope({
+    itemSelector: '.chart',
+    layoutMode: 'fitRows',
+    getSortData: {
+    }
+  });
+};</code></pre>
+</section>
+
+<section style="text-align:center;padding-top:0em;font-size:70%;">
+    <pre><code class="language-javascript">var setupIsoytpe = function() {
+  $("#vis").isotope({
+    itemSelector: '.chart',
+    layoutMode: 'fitRows',
+    getSortData: {
+      count: function(e) {
+        var d = d3.select(e).datum();
+        var sum = d3.sum(d.values, function(d) {
+          return d.n;
+        });
+        return sum * -1;
+      }    
+    }
+  });
+};</code></pre>
+</section>
+
+<section style="text-align:center;padding-top:0em;font-size:70%;">
+    <pre><code class="language-javascript">var setupIsoytpe = function() {
   $("#vis").isotope({
     itemSelector: '.chart',
     layoutMode: 'fitRows',
@@ -749,6 +839,7 @@ var mousemove = function() {
   });
 };</code></pre>
 </section>
+
 
 <section  style="text-align:center;padding-top:5em;">
     <pre ><code class="language-javascript">$("#vis").isotope({sortBy: 'count'});
