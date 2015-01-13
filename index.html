@@ -90,24 +90,30 @@ video {
 <section style="padding-top:5em;background:url(img/waldo.jpg);background-size:cover;">
 </section>
 
+<section style="padding-top:5em;background:url(img/waldo_highlight.jpg);background-size:cover;">
+</section>
+
 <section style="padding-top:2em;">
 <img src="img/minimaps_sub.jpg" style="width:100%"/>
 </section>
 
-<section style="padding-top:2em;">
+<section style="padding-top:2em;background-color:#FFF4D3;">
 <img src="img/murray.png" style="width:100%"/>
 </section>
 
-<section>
-  <video loop>
-    <source src="video/manifest.mp4" type="video/mp4" />
-    </video>
-    <p class="caption"><a href="http://michaelporath.com/projects/manifest-destiny/#overview">manifest destiny</a></p>
-    </section>
-
+<!-- <section> -->
+<!--   <video loop> -->
+<!--     <source src="video/manifest.mp4" type="video/mp4" /> -->
+<!--     </video> -->
+<!--     <p class="caption"><a href="http://michaelporath.com/projects/manifest-destiny/#overview">manifest destiny</a></p> -->
+<!--     </section> -->
 
 
 <section style="text-align:center;padding-top:5em;">
+<p class="title">Basics</p>
+</section>
+
+<section style="text-align:center;padding-top:6em;">
 <p>Small multiples use the same basic graphic or chart to display difference slices of a data set
 </section>
 
@@ -121,12 +127,12 @@ video {
 
 <section style="padding-top:4em;text-align:center;">
 <img src="img/SmallMultiples2.png" style=""/>
-    <p class="caption"><a href="http://stephanieevergreen.com/declutter-dataviz-with-small-multiples/">declutter dataviz</a></p>
+    <p class="caption"><a href="http://stephanieevergreen.com/declutter-dataviz-with-small-multiples/">stephanie evergreen - declutter dataviz</a></p>
 </section>
 
 <section style="padding-top:4em;text-align:center;">
 <img src="img/SmallMultiples33.png" style="width:100%"/>
-    <p class="caption"><a href="http://stephanieevergreen.com/declutter-dataviz-with-small-multiples/">declutter dataviz</a></p>
+    <p class="caption"><a href="http://stephanieevergreen.com/declutter-dataviz-with-small-multiples/">stephanie evergreen - declutter dataviz</a></p>
 </section>
 
 <section>
@@ -142,11 +148,11 @@ video {
 </section>
 
 <section style="text-align:center;padding-top:5em;">
-<p style="font-size:200%">Origins</p>
+<p class="title">Origins</p>
 </section>
 
 <section style="text-align:center;padding-top:5em;">
-<p style="font-size:200%">Tufte</p>
+<p class="title">Tufte?</p>
 </section>
 
 <!-- <section style="text-align:center;padding-top:5em;"> -->
@@ -157,9 +163,9 @@ video {
 <img src="img/church_1890_inset_l.jpg" style="width:100%"/>
 </section>
 
-<section style="text-align:center;padding-top:1em;">
-<img src="img/church_remake.png" style="height:100%"/>
-</section>
+<!-- <section style="text-align:center;padding-top:1em;"> -->
+<!-- <img src="img/church_remake.png" style="height:100%"/> -->
+<!-- </section> -->
 
 <section style="text-align:center;padding-top:1em;">
 <img src="img/deaths_1870.jpg" style="height:100%"/>
@@ -236,9 +242,9 @@ video {
     <p class="caption"><a href="http://www.nytimes.com/2014/04/23/upshot/the-american-middle-class-is-no-longer-the-worlds-richest.html?abt=0002&abg=1">middle classes</a></p>
 </section>
 
-<section style="text-align:center;padding-top:3em;">
-<img src="img/eu_unemploy.png" style="width:100%"/>
-</section>
+<!-- <section style="text-align:center;padding-top:3em;"> -->
+<!-- <img src="img/eu_unemploy.png" style="width:100%"/> -->
+<!-- </section> -->
 
 <section>
   <video loop>
@@ -284,7 +290,7 @@ video {
   <video loop>
     <source src="video/fracking.mp4" type="video/mp4" style="width:100%;" />
     </video>
-    <p class="caption"><a href="">fracking</a></p>
+    <p class="caption"><a href="">faces of fracking</a></p>
 </section>
 
 
@@ -340,8 +346,10 @@ video {
     </code></pre>
 </section>
 
-<section style="text-align:center;padding-top:3em;">
-<img src="img/final.png" style="width:100%"/>
+<section>
+  <video loop>
+    <source src="video/small_mults.mp4" type="video/mp4" />
+  </video>
 </section>
 
 <section style="text-align:center;padding-top:1em;">
@@ -372,8 +380,7 @@ video {
       {"year":"2005", "n":2200, "date":"2005-01-01"},...]
   },
   ...
-]
-    </code></pre>
+]</code></pre>
 </section>
 
 <section style="text-align:center;padding-top:5em;font-size:90%;">
@@ -416,6 +423,7 @@ div.enter()
     </code></pre>
 </section>
 
+
 <section style="padding-top:1em;">
 <img src="img/image_mash/image_mash.001.png" style="width:100%"/>
 </section>
@@ -428,8 +436,12 @@ div.enter()
 <img src="img/image_mash/image_mash.003.png" style="width:100%"/>
 </section>
 
+<section style="padding-top:1em;">
+<img src="img/join.png" style="text-align:center;display: block;margin-left:auto;margin-right:auto;"/>
+</section>
+
 <section style="text-align:center;padding-top:5em;font-size:90%;">
-    <pre data-line="3,8"><code class="language-javascript">var div = d3.select("#vis")
+    <pre data-line="3,5,8"><code class="language-javascript">var div = d3.select("#vis")
   .selectAll(".chart")
   .data(data);
   
@@ -500,6 +512,12 @@ var g = svg
 <section style="padding-top:1em;">
 <img src="img/image_mash/image_mash.005.png" style="width:100%"/>
 </section>
+
+<section style="text-align:center;padding-top:5em;">
+    <pre><code class="language-javascript">var xScale = d3.time.scale().range([0, width]);
+var yScale = d3.scale.linear().range([height, 0]);
+    </code></pre>
+  </section>
 
 <section style="text-align:center;padding-top:3em;">
     <pre><code class="language-javascript">var line = d3.svg.line()
@@ -576,34 +594,52 @@ lines.append("path")
 
 <section  style="text-align:center;padding-top:3em;">
     <pre ><code class="language-javascript">// hide for now
-  circle = lines.append("circle")
-    .attr("r", 2.2)
-    .attr("opacity", 0)
+circle = lines.append("circle")
+  .attr("r", 2.2)
+  .attr("opacity", 0)
     </code></pre>
 </section>
 
 <section  style="padding-top:3em;font-size:100%;">
-    <pre data-line="2"><code class="language-javascript">var mouseover = function() {
+    <pre ><code class="language-javascript">var mouseover = function() {
   circle.attr("opacity", 1.0);
-  d3.selectAll(".static_year")
-    .classed("hidden", true);
+
   return mousemove.call(this);
 };
     </code></pre>
 </section>
+<!-- <section  style="padding-top:3em;font-size:100%;"> -->
+<!--     <pre data-line="2"><code class="language-javascript">var mouseover = function() { -->
+<!--   circle.attr("opacity", 1.0); -->
+<!--   d3.selectAll(".static_year") -->
+<!--     .classed("hidden", true); -->
+<!--   return mousemove.call(this); -->
+<!-- }; -->
+<!--     </code></pre> -->
+<!-- </section> -->
 
 <section  style="padding-top:3em;font-size:100%;">
-    <pre data-line="3"><code class="language-javascript">var mouseout = function() {
+    <pre ><code class="language-javascript">var mouseout = function() {
   circle.attr("opacity", 0);
-  d3.selectAll(".static_year")
-    .classed("hidden", false);
-
-  caption.text("");
-  curYear.text("");
+  
   return true;
 };
     </code></pre>
 </section>
+
+<!-- <section  style="padding-top:3em;font-size:100%;"> -->
+<!--     <pre data-line="2"><code class="language-javascript">var mouseout = function() { -->
+<!--   circle.attr("opacity", 0); -->
+<!--   d3.selectAll(".static_year") -->
+<!--     .classed("hidden", false); -->
+<!--  -->
+<!--   caption.text(""); -->
+<!--   curYear.text(""); -->
+<!--   return true; -->
+<!-- }; -->
+<!--     </code></pre> -->
+<!-- </section> -->
+<!--  -->
 
 <section  style="text-align:center;padding-top:1em;font-size:80%;">
     <pre data-line="4,5"><code class="language-javascript">var mousemove = function() {
@@ -859,17 +895,19 @@ var mousemove = function() {
     </code></pre>
 </section>
 
-
-<section style="text-align:center;padding-top:1em;">
-<img src="img/final.png" style="width:100%"/>
+<section>
+  <video loop>
+    <source src="video/small_mults.mp4" type="video/mp4" />
+  </video>
     <p class="caption"><a href="https://github.com/vlandham/small_mults">github.com/vlandham/small_mults</a></p>
 </section>
 
-<section style="text-align:center;padding-top:1em;">
-<img src="img/final.png" style="width:100%"/>
+<section>
+  <video loop>
+    <source src="video/small_mults.mp4" type="video/mp4" />
+  </video>
     <p class="caption"><a href="http://vallandingham.me/small_mults/">vallandingham.me/small_mults/</a></p>
 </section>
-
 
 <section id="lorenz" style="text-align:center;padding-top:0;">
   <canvas></canvas>
